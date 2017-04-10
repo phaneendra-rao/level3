@@ -1,8 +1,10 @@
 $(document).ready(function(){
   $('.loader').hide();
-  var myFacebookToken = 'EAACEdEose0cBAAw2mEZCXrTnFbfiZCDSc1JJwPfEK3e6qZBwpKyj8YFRg9z0AJt4ai0Phu60rT8j5iONWXOO6NlJnPVFi3ARPnhdZApd3zGmZAHJTZCwZBB6rvyCPIR353HbNVgQvpGNWNFyzCexmj14L7NHCMJzYv3O2x3fdYlUKO2MjmOuFNPPeUlRAnmnZBYeIWmMO1YgcMxzYzfCaD6RHxCTr084EJEZD';
-  myProfileInfo();
-  function myProfileInfo()
+  var myFacebookToken = 'EAACEdEose0cBAF8iSKfdwG4rJEHe0ZAHdxrc74mOWqZAV7a7sZCOytYfPvTfujUV3smXgmxjqH6OSTBeh0kKniGZC0XjtRMw4Pr87yiN6q4kJPJ62dfsWeQPc2JZCTFj4qZCmCIjl8JHLCUt5wurbdbNO60awn5YHvfI5ZAb4eWtcveQ5Fe7YDbTTKgUfu2eD4ZD';
+  myFeed();
+myProfileInfo();
+
+  function myFeed()
   {
     $.ajax('https:graph.facebook.com/me/feed?access_token='+myFacebookToken,{
       success:function(response)
@@ -149,8 +151,9 @@ $(document).ready(function(){
  {
   console.log(request);
   console.log(errorType);
-  alert(errorMessage);
+  var errorMessage="Something went wrong..!";
  },
+ //alert(errorMessage);
  timeout:3000,
  beforeSend : function()
  {
@@ -164,7 +167,81 @@ $(document).ready(function(){
 }
 
     );//end ajax
-  }//end PmyProfileInfo
+  }//end myFeed
 
-//  $('#feedBtn').on('click',myProfileInfo);
+  $('#feedBtn').on('click',myFeed);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  function myProfileInfo()
+  {
+    $.ajax('https:graph.facebook.com/me?access_token='+myFacebookToken,{
+      success:function(response)
+      {
+        console.log(response);
+        console.log(typeof(response));
+      //  $('#name').text(response.name);
+      //  $('#email').text(response.email);
+      //  $('#homeTown').text(response.hometown.name);
+      //  $('#profileID').html('<a href="https://facebook.com/'+response.id+'" target="blank">https://facebook.com/'+response.id+'</a>');
+      //  $('#gender').text(response.gender);
+      //    $('#birthday').text(response.birthday);
+
+
+
+
+
+
+
+      $("#info").append('<div class="panel panel-primary"><div class="panel-heading">Name : '+response.name+'</div>  <div class="panel-body">Email : '+response.email+'<br>Date of birth : '+response.birthday+'<br>Home Town : '+response.hometown.name+'<br> Follow : <a href="https://facebook.com/'+response.id+'" target="blank">https://facebook.com/'+response.id+'</a><br> Gender : '+response.gender+' ');
+
+
+      },//end success
+
+      error : function(request,errorType,errorMessage)
+      {
+        console.log(request);
+        console.log(errorType);
+        var errorMessage="Something went wrong..!";
+        //alert(errorMessage);
+      },
+
+      timeout:3000,
+
+      beforeSend : function()
+      {
+        $('.loader').show();
+      },
+
+      complete : function()
+      {
+        $('.loader').hide();
+      }
+
+}
+
+    );//end ajax
+  }//end myFeed
+
+
+  $('#profileBtn').on('click',myProfileInfo);
 });//end document
