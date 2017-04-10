@@ -1,0 +1,13 @@
+body{
+padding-top:10px;
+}
+.nav
+{
+  position:fixed;
+
+  z-index:100;
+}
+.panel
+{
+  margin-top:30px;
+}
